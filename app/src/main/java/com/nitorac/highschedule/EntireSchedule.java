@@ -1,5 +1,6 @@
 package com.nitorac.highschedule;
 
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -66,7 +67,9 @@ public class EntireSchedule {
                 esArg.add(Day.parseJSON(day));
             }
         }catch(Exception e){
+            Snackbar.make(MainActivity.act.getWindow().getDecorView().getRootView(), MainActivity.act.getString(R.string.parseJsonException), Snackbar.LENGTH_LONG).show();
             e.printStackTrace();
+            return new EntireSchedule();
         }
         return new EntireSchedule(esArg);
     }

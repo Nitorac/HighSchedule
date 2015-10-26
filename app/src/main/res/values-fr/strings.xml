@@ -3,4 +3,7 @@
     <string name="app_name">HighSchedule</string>
     <string name="impTime">Créneau horaire impossible</string>
     <string name="parseJsonException">Impossible d\'analyser l\'emploi du temps sauvegardé</string>
+    <string name="showingSchedule">Afficher l\'emploi du temps</string>
+    <string name="configSchedule">Configurer l\'emploi du temps</string>
+    <string name="aboutSchedule">A propos</string>
 </resources>

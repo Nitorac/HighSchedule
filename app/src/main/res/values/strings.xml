@@ -2,4 +2,7 @@
     <string name="app_name">HighSchedule</string>
     <string name="impTime">Impossible time slot</string>
     <string name="parseJsonException">Unable to parse saved schedule</string>
+    <string name="showingSchedule">Show the schedule</string>
+    <string name="configSchedule">Set the schedule</string>
+    <string name="aboutSchedule">About</string>
 </resources>
