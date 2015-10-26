@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HighSchedule</string>
+    <string name="impTime">Créneau horaire impossible</string>
+    <string name="parseJsonException">Impossible d\'analyser l\'emploi du temps sauvegardé</string>
+</resources>

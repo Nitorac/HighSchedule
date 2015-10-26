@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HighSchedule</string>
+    <string name="impTime">Impossible time slot</string>
+    <string name="parseJsonException">Unable to parse saved schedule</string>
+</resources>
