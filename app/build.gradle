@@ -9,7 +9,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -27,4 +27,6 @@ dependencies {
     compile 'com.balysv.materialmenu:material-menu:1.5.4'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
     compile 'com.balysv.materialmenu:material-menu-abc:1.5.4'
+    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+    compile 'me.drakeet.materialdialog:library:1.2.2'
 }

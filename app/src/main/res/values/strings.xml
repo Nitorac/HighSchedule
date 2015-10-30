@@ -5,4 +5,11 @@
     <string name="showingSchedule">Show the schedule</string>
     <string name="configSchedule">Set the schedule</string>
     <string name="aboutSchedule">About</string>
+    <string name="settings">Settings</string>
+    <string name="events">Events</string>
+    <string name="modifyEventTitle">Modify the event</string>
+    <string name="modifyEventMatiereLabel">Discipline</string>
+    <string name="modifyEventSalleLabel">Classroom</string>
+    <string name="modifyEventStartTimeLabel">Start time</string>
+    <string name="modifyEventEndTimeLabel">End time</string>
 </resources>

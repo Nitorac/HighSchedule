@@ -6,4 +6,11 @@
     <string name="showingSchedule">Afficher l\'emploi du temps</string>
     <string name="configSchedule">Configurer l\'emploi du temps</string>
     <string name="aboutSchedule">A propos</string>
+    <string name="settings">Paramètres</string>
+    <string name="events">Événements</string>
+    <string name="modifyEventTitle">Modifier l\'événement</string>
+    <string name="modifyEventMatiereLabel">Matière</string>
+    <string name="modifyEventSalleLabel">Salle</string>
+    <string name="modifyEventStartTimeLabel">Heure de début</string>
+    <string name="modifyEventEndTimeLabel">Heure de fin</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.nitorac.highschedule;
 
+import android.support.design.widget.Snackbar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +24,21 @@ public class Day {
 
     public ArrayList<PlanningItem> schedule = new ArrayList<>();
 
-    public Day(){
+    public void add(PlanningItem pi) throws UnsupportedOperationException{
+        if(!ifIntersectWithDay(pi)){
+            schedule.add(pi);
+        }else{
+            throw new UnsupportedOperationException();
+        }
+    }
 
+    public boolean ifIntersectWithDay(PlanningItem pi){
+        for(PlanningItem pi2test : schedule){
+            if(PlanningItem.ifIntersect(pi, pi2test)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public JSONArray toJSON(){
@@ -33,6 +48,9 @@ public class Day {
             try {
                 properties.put(Util.startTime, item.getStartCal().getTimeInMillis());
                 properties.put(Util.endTime, item.getEndCal().getTimeInMillis());
+                properties.put(Util.matiere, item.getMatiere());
+                properties.put(Util.salle, item.getSalle());
+                properties.put(Util.color, item.getColor());
             }catch(JSONException e){
                 e.printStackTrace();
             }
@@ -41,22 +59,7 @@ public class Day {
         return day;
     }
 
-    public void add(PlanningItem pi) throws UnsupportedOperationException{
-        boolean isCorrect = true;
-        for(PlanningItem temp_pi : schedule){
-            if(PlanningItem.ifIntersect(temp_pi, pi)){
-                isCorrect = false;
-                break;
-            }
-        }
-        if(isCorrect){
-            schedule.add(pi);
-        }else{
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public static Day parseJSON(JSONArray day){
+    public static Day parseJSON(JSONArray day) throws UnsupportedOperationException{
         Day returnDay = new Day();
         try {
             for (int i = 0; i < day.length(); i++) {
@@ -65,8 +68,14 @@ public class Day {
                 Calendar endItem = Calendar.getInstance();
                 startItem.setTimeInMillis((long) item.get(Util.startTime));
                 endItem.setTimeInMillis((long) item.get(Util.endTime));
-                returnDay.add(new PlanningItem(startItem.get(Calendar.HOUR), startItem.get(Calendar.MINUTE), endItem.get(Calendar.HOUR), endItem.get(Calendar.MINUTE)));
+                String matiere = (String) item.get(Util.matiere);
+                String salle = (String) item.get(Util.salle);
+                String color = (String) item.get(Util.color);
+                returnDay.add(new PlanningItem(startItem.get(Calendar.HOUR_OF_DAY), startItem.get(Calendar.MINUTE), endItem.get(Calendar.HOUR_OF_DAY), endItem.get(Calendar.MINUTE), matiere, salle, color));
             }
+        }catch (UnsupportedOperationException ex){
+            ex.printStackTrace();
+            throw new UnsupportedOperationException();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -79,5 +88,9 @@ public class Day {
 
     public ArrayList<PlanningItem> getPlanningItem(){
         return schedule;
+    }
+
+    public int countPlanningItem(){
+        return schedule.size();
     }
 }

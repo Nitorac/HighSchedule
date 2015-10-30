@@ -5,4 +5,5 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="actionBarBackground">#138eda</color>
     <color name="tabBackground">#1a69ae</color>
+    <color name="dialogBackground">#6baee9</color>
 </resources>

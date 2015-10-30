@@ -33,8 +33,13 @@ public class EntireSchedule {
         entirePlanning.add(day);
     }
 
-    public void addTimeSlot(PlanningItem pi, int day){
+    public Day getDay(int index){
+        return entirePlanning.get(index);
+    }
+
+    public void addTimeSlot(PlanningItem pi, final int day) throws UnsupportedOperationException{
         entirePlanning.get(day-1).add(pi);
+        DefineActivity.refreshTab(day-1);
     }
 
     public JSONObject toJSON(){
@@ -67,7 +72,7 @@ public class EntireSchedule {
                 esArg.add(Day.parseJSON(day));
             }
         }catch(Exception e){
-            Snackbar.make(MainActivity.act.getWindow().getDecorView().getRootView(), MainActivity.act.getString(R.string.parseJsonException), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(DefineActivity.act.getWindow().getDecorView().getRootView(), DefineActivity.act.getString(R.string.parseJsonException), Snackbar.LENGTH_LONG).show();
             e.printStackTrace();
             return new EntireSchedule();
         }

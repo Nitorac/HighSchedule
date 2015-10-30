@@ -9,21 +9,23 @@ public class PlanningItem {
     private Calendar endTime = Calendar.getInstance();
     private long startMillis;
     private long endMillis;
+    private String matiere;
+    private String salle;
+    private String color;
 
-    public PlanningItem(int startHour, int startMinute, int endHour, int endMinute) throws ArithmeticException{
-        startTime.set(Calendar.HOUR, startHour);
+    public PlanningItem(int startHour, int startMinute, int endHour, int endMinute, String matiere, String salle, String color) throws ArithmeticException{
+        startTime.set(Calendar.HOUR_OF_DAY, startHour);
         startTime.set(Calendar.MINUTE, startMinute);
-        endTime.set(Calendar.HOUR, endHour);
+        endTime.set(Calendar.HOUR_OF_DAY, endHour);
         endTime.set(Calendar.MINUTE, endMinute);
         startMillis = startTime.getTimeInMillis();
         endMillis = endTime.getTimeInMillis();
-        if(endMillis - startMillis <= 0){
+        if(endMillis <= startMillis){
             throw new ArithmeticException();
         }
-    }
-
-    public PlanningItem(){
-        this(0, 0, 0, 0);
+        this.matiere = matiere;
+        this.salle = salle;
+        this.color = color;
     }
 
     public Calendar getStartCal(){
@@ -56,5 +58,29 @@ public class PlanningItem {
     public static boolean ifIntersect(PlanningItem pi1, PlanningItem pi2){
         return (pi1.getStartCal().getTimeInMillis() < pi2.getEndCal().getTimeInMillis())
                 && (pi1.getEndCal().getTimeInMillis() > pi2.getStartCal().getTimeInMillis());
+    }
+
+    public String getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+    public void setSalle(String salle) {
+        this.salle = salle;
+    }
+
+    public String getSalle() {
+        return salle;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

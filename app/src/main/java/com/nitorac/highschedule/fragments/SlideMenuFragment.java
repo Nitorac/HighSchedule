@@ -1,20 +1,39 @@
 package com.nitorac.highschedule.fragments;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.nitorac.highschedule.R;
+import com.nitorac.highschedule.Util;
 
 public class SlideMenuFragment extends ListFragment {
 
+    public static View headerView;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list, null);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.list, container, false);
+        headerView = view.findViewById(R.id.headerLayout);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //TODO : Show image without loosing definition
+        ImageView about = (ImageView) headerView.findViewById(R.id.about);
+        TextView appNameVer = (TextView) headerView.findViewById(R.id.appNameAndVersion);
+        appNameVer.setText(String.format("%s       v%s", getString(R.string.app_name), Util.VERSION));
+        return view;
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
