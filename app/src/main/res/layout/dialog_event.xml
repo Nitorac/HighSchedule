@@ -3,28 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/modifyEventTitle"
-        android:id="@+id/title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/t1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
+
         <EditText
             android:id="@+id/matiereEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:hint="@string/modifyEventMatiereLabel" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -33,23 +25,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/t1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp">
+        android:layout_alignParentStart="true">
+
         <EditText
             android:id="@+id/salleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:hint="@string/modifyEventSalleLabel" />
+            android:hint="@string/modifyEventSalleLabel"/>
+
     </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
+      <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/t2"
         android:weightSum="100"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
+        android:id="@+id/timeContainer">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -112,6 +107,45 @@
                 android:layout_below="@id/it2"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorContainer"
+        android:layout_below="@id/timeContainer"
+        android:weightSum="100">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="20"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/colorEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="@string/modifyEventColorLabel"
+                android:maxLength="7"
+                android:digits="0123456789abcdefABCDEF"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/colorView"
+            android:enabled="false"
+            android:gravity="right"
+            android:layout_weight="80"
+            android:layout_gravity="bottom"
+            android:focusable="false" />
+
     </LinearLayout>
 
 </RelativeLayout>

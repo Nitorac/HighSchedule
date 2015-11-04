@@ -41,6 +41,39 @@ public class Day {
         return false;
     }
 
+    public boolean ifIntersectWithDayIgnoreItself(PlanningItem pi){
+        ArrayList<PlanningItem> reductedSchedule = schedule;
+        removeByStartTime(reductedSchedule, pi.getStartCal().get(Calendar.HOUR_OF_DAY), pi.getStartCal().get(Calendar.MINUTE));
+        for(PlanningItem pi2test : reductedSchedule){
+            if(PlanningItem.ifIntersect(pi, pi2test)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeByStartTime(ArrayList<PlanningItem> schedule, int hourOfDay, int minute){
+        for(int i = 0;i<schedule.size();i++){
+            PlanningItem pi = schedule.get(i);
+            if(pi.getStartCal().get(Calendar.HOUR_OF_DAY) == hourOfDay && pi.getStartCal().get(Calendar.MINUTE)==minute){
+                schedule.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeByStartTime(int hourOfDay, int minute){
+        for(int i = 0;i<schedule.size();i++){
+            PlanningItem pi = schedule.get(i);
+            if(pi.getStartCal().get(Calendar.HOUR_OF_DAY)==hourOfDay && pi.getStartCal().get(Calendar.MINUTE)==minute){
+                schedule.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public JSONArray toJSON(){
         JSONArray day = new JSONArray();
         for(PlanningItem item : schedule){
@@ -86,7 +119,7 @@ public class Day {
         schedule.add(pi);
     }
 
-    public ArrayList<PlanningItem> getPlanningItem(){
+    public ArrayList<PlanningItem> getPlanningItems(){
         return schedule;
     }
 

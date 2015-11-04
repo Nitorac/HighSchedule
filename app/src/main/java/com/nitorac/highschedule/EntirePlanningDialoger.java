@@ -6,16 +6,17 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Nitorac.
  */
 public class EntirePlanningDialoger {
 
-    public static ArrayList<WeekViewEvent> getEventsOfDay(Day day){
+    public static List<WeekViewEvent> getEventsOfDay(Day day){
         ArrayList<WeekViewEvent> result = new ArrayList<>();
         for(int i = 0;i<day.countPlanningItem();i++){
-            result.add(getEvent(day.getPlanningItem().get(i), day));
+            result.add(getEvent(day.getPlanningItems().get(i), day));
         }
         return result;
     }

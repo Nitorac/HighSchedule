@@ -1,4 +1,4 @@
-package com.nitorac.highschedule.day_fragments;
+package com.nitorac.highschedule.fragments.define_activity_fragments.day_fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import com.alamkanak.weekview.WeekView;
 import com.nitorac.highschedule.Day;
 import com.nitorac.highschedule.DefineActivity;
+import com.nitorac.highschedule.MainActivity;
 import com.nitorac.highschedule.R;
 import com.nitorac.highschedule.Util;
 
 /**
  * Created by Nitorac.
  */
-public class Sunday extends Fragment{
+public class Thursday extends Fragment{
 
     public static int day;
     public static String day_name;
@@ -24,9 +25,9 @@ public class Sunday extends Fragment{
     public static ViewGroup containeur;
     public static WeekView wkv;
 
-    public static Sunday newInstance(int day, String day_name) {
+    public static Thursday newInstance(int day, String day_name) {
         Bundle args = new Bundle();
-        Sunday fragment = new Sunday();
+        Thursday fragment = new Thursday();
         args.putInt(Util.DAY, day);
         args.putString(Util.DAY_NAME, day_name);
         fragment.setArguments(args);
@@ -38,7 +39,7 @@ public class Sunday extends Fragment{
         super.onCreate(savedInstanceState);
         day = getArguments().getInt(Util.DAY);
         day_name = getArguments().getString(Util.DAY_NAME);
-        day_time = DefineActivity.planning.getDay(day);
+        day_time = MainActivity.planning.getDay(day);
     }
 
     @Override

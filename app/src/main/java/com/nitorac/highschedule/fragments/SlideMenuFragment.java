@@ -1,18 +1,26 @@
 package com.nitorac.highschedule.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nitorac.highschedule.DefineActivity;
+import com.nitorac.highschedule.MainActivity;
 import com.nitorac.highschedule.R;
+import com.nitorac.highschedule.ShowActivity;
 import com.nitorac.highschedule.Util;
 
 public class SlideMenuFragment extends ListFragment {
@@ -26,7 +34,7 @@ public class SlideMenuFragment extends ListFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO: Add About View
             }
         });
         //TODO : Show image without loosing definition
@@ -46,6 +54,25 @@ public class SlideMenuFragment extends ListFragment {
         }
         getListView().setDivider(null);
         setListAdapter(adapter);
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MainActivity.menu.toggle(true);
+                FragmentTransaction transaction = MainActivity.fm.beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                switch(i){
+                    case 0:
+                        transaction.replace(R.id.fragment_container, new ShowActivity());
+                        break;
+                    case 1:
+                        transaction.replace(R.id.fragment_container, new DefineActivity());
+                        break;
+                }
+
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     private class MainMenuItem {

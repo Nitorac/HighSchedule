@@ -15,12 +15,13 @@ public class PlanningSavingManager {
     private static SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "ScheduleStr";
     private static final String JSON = "Schedule";
+    private static final String defaultJson = "{\"Root\":{\"3\":[],\"2\":[],\"1\":[],\"0\":[],\"6\":[],\"5\":[],\"4\":[]}}";
     private static String jsonPlanning;
 
     public PlanningSavingManager(Activity act){
         this.act = act;
         sharedPreferences = act.getSharedPreferences(PREFS_NAME, 0);
-        jsonPlanning = sharedPreferences.getString(JSON, "{}");
+        jsonPlanning = sharedPreferences.getString(JSON, defaultJson);
     }
 
     public EntireSchedule getSavedPlanning(){
@@ -29,7 +30,9 @@ public class PlanningSavingManager {
             planning = new JSONObject(jsonPlanning);
         }catch (JSONException js){
             Snackbar.make(act.getWindow().getDecorView().getRootView(), act.getString(R.string.parseJsonException), Snackbar.LENGTH_LONG).show();
-            return new EntireSchedule();
+            EntireSchedule newEs = new EntireSchedule();
+            savePlanning(newEs);
+            return newEs;
         }
         EntireSchedule es = EntireSchedule.parseJSON(planning);
         return es;

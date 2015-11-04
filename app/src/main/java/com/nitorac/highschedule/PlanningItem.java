@@ -1,7 +1,16 @@
 package com.nitorac.highschedule;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class PlanningItem {
 
@@ -56,8 +65,17 @@ public class PlanningItem {
     }
 
     public static boolean ifIntersect(PlanningItem pi1, PlanningItem pi2){
-        return (pi1.getStartCal().getTimeInMillis() < pi2.getEndCal().getTimeInMillis())
-                && (pi1.getEndCal().getTimeInMillis() > pi2.getStartCal().getTimeInMillis());
+        ArrayList<Calendar> cals = new ArrayList<>(Arrays.asList(pi1.getStartCal(), pi1.getEndCal(), pi2.getStartCal(), pi2.getEndCal()));
+        for(int i = 0;i<cals.size();i++){
+            cals.get(i).set(0, 0, 0);
+        }
+        //Log.i("Intersect pi1", String.valueOf(pi1.getEndCal().getTimeInMillis()- pi1.getStartCal().getTimeInMillis()));
+        //Log.i("Intersect pi2", String.valueOf(pi2.getEndCal().getTimeInMillis() - pi2.getStartCal().getTimeInMillis()));
+        boolean intersectA = (cals.get(0).getTimeInMillis() < cals.get(3).getTimeInMillis());
+        boolean intersectB = (cals.get(1).getTimeInMillis() > cals.get(2).getTimeInMillis());
+        Log.i("IntersectA", String.valueOf(intersectA));
+        Log.i("IntersectB", String.valueOf(intersectB));
+        return (intersectA && intersectB);
     }
 
     public String getMatiere() {

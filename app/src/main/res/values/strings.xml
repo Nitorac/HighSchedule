@@ -12,4 +12,15 @@
     <string name="modifyEventSalleLabel">Classroom</string>
     <string name="modifyEventStartTimeLabel">Start time</string>
     <string name="modifyEventEndTimeLabel">End time</string>
+    <string name="validate">Validate</string>
+    <string name="delete">Delete</string>
+    <string name="modifyEventColorLabel">Color</string>
+    <string name="intersectEventWarn">This time slot is clashing with another</string>
+    <string name="badTimeSlot">Impossible time slot (start time >= end time)</string>
+    <string name="addEvent">Add an event</string>
+    <string name="remove">Delete</string>
+    <string name="removeMessage">Do you really want to remove this event ?</string>
+    <string name="impRemoveEvent">Unable to remove event</string>
+    <string name="chooseColor">Choose a color</string>
+    <string name="fieldsNotCompleted">Please complete each field</string>
 </resources>

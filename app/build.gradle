@@ -28,5 +28,16 @@ dependencies {
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
     compile 'com.balysv.materialmenu:material-menu-abc:1.5.4'
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
-    compile 'me.drakeet.materialdialog:library:1.2.2'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.0@aar') {
+        transitive = true
+    }
+}
+
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+    maven {
+        url "https://s3.amazonaws.com/repo.commonsware.com"
+    }
 }

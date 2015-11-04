@@ -13,4 +13,15 @@
     <string name="modifyEventSalleLabel">Salle</string>
     <string name="modifyEventStartTimeLabel">Heure de début</string>
     <string name="modifyEventEndTimeLabel">Heure de fin</string>
+    <string name="validate">Valider</string>
+    <string name="delete">Effacer</string>
+    <string name="modifyEventColorLabel">Couleur</string>
+    <string name="intersectEventWarn">Cet événement est un conflit avec un autre</string>
+    <string name="badTimeSlot">Créneau horaire impossible (début >= fin)</string>
+    <string name="addEvent">Ajouter un événement</string>
+    <string name="remove">Effacer</string>
+    <string name="removeMessage">Voulez-vous vraiment supprimer cet événement ?</string>
+    <string name="impRemoveEvent">Impossible de supprimer l\'événement</string>
+    <string name="chooseColor">Choisissez une couleur</string>
+    <string name="fieldsNotCompleted">Veuillez compléter chaque champ</string>
 </resources>
