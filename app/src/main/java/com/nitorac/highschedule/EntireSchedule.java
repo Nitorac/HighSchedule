@@ -7,9 +7,11 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EntireSchedule {
 
@@ -52,19 +54,23 @@ public class EntireSchedule {
     public PlanningItem getPlanningItemFromTime(Calendar time){
         int day = (time.get(Calendar.DAY_OF_WEEK)==1) ? 6 : time.get(Calendar.DAY_OF_WEEK)-2;
         Day day_time = getDay(day);
+        PlanningItem currentPi = new PlanningItem(0,0 , 0,1 , "Pas de cours", "Aucune", String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(MainActivity.act, R.color.slidingMenuBakground))));
 
         for(PlanningItem pi : day_time.getPlanningItems()){
-            ArrayList<Calendar> cals = new ArrayList<>(Arrays.asList(time,pi.getStartCal(),pi.getEndCal()));
-            for(int i = 0; i<cals.size();i++){
-                cals.get(i).set(0, 0, 0);
-            }
-            boolean before = cals.get(0).after(cals.get(1));
-            boolean after = cals.get(0).before(cals.get(2));
-            if(before && after){
-                return pi;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                Date curTime = sdf.parse(time.get(Calendar.HOUR_OF_DAY) + ":" + time.get(Calendar.MINUTE));
+                Date startTime = sdf.parse(pi.getStartCal().get(Calendar.HOUR_OF_DAY) + ":" + pi.getStartCal().get(Calendar.MINUTE));
+                Date endTime = sdf.parse(pi.getEndCal().get(Calendar.HOUR_OF_DAY) + ":" + pi.getEndCal().get(Calendar.MINUTE));
+
+                if(curTime.after(startTime) && curTime.before(endTime)){
+                    currentPi = pi;
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
-        return new PlanningItem(0,0 , 0,1 , "Pas de cours", "Aucune", String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(MainActivity.act, R.color.slidingMenuBakground))));
+        return currentPi;
     }
 
     public JSONObject toJSON(){
