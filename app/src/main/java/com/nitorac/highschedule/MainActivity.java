@@ -1,24 +1,24 @@
 package com.nitorac.highschedule;
 
-import android.app.Activity;
 import android.content.res.Configuration;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +29,28 @@ public class MainActivity extends AppCompatActivity {
     public static FragmentManager fm;
     public static PlanningSavingManager psm;
     public static EntireSchedule planning;
+    public static final int loopDuration = 60 * 1000;
+    public static int fragment_position;
+
+    public static Handler myHandler;
+    public static Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(fragment_position == 0){
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_y, R.anim.exit_y);
+                transaction.replace(R.id.fragment_container, new ShowActivity()).addToBackStack(null).commit();
+                myHandler.postDelayed(this,loopDuration);
+            }
+        }
+    };
+
+    public static void setHandler(Runnable run){
+        Calendar now = Calendar.getInstance();
+        int seconds = now.get(Calendar.SECOND);
+        int sleepSecs = 60 - seconds;
+        myHandler.postDelayed(run, sleepSecs*1000);
+    }
 
     private SlidingMenu.CanvasTransformer mTransformer = new SlidingMenu.CanvasTransformer() {
         @Override
@@ -73,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
         menu.attachToActivity(MainActivity.this, SlidingMenu.SLIDING_WINDOW);
         menu.setMenu(R.layout.menu);
         getPlanning();
+        myHandler = new Handler();
+        setHandler(myRunnable);
         fm.beginTransaction().replace(R.id.fragment_container, new ShowActivity()).commit();
+        MainActivity.fragment_position = 0;
     }
 
     @Override
@@ -104,6 +129,20 @@ public class MainActivity extends AppCompatActivity {
             menu.toggle(true);
         }
         return true;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(MainActivity.myHandler != null){
+            MainActivity.myHandler.removeCallbacks(MainActivity.myRunnable);
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setHandler(myRunnable);
     }
 
     @Override

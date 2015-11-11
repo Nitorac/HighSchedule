@@ -52,7 +52,7 @@ public class EntireSchedule {
     }
 
     public PlanningItem getPlanningItemFromTime(Calendar time){
-        int day = (time.get(Calendar.DAY_OF_WEEK)==1) ? 6 : time.get(Calendar.DAY_OF_WEEK)-2;
+        int day = Util.convertCalDayinProgDay(time.get(Calendar.DAY_OF_WEEK));
         Day day_time = getDay(day);
         PlanningItem currentPi = new PlanningItem(0,0 , 0,1 , "Pas de cours", "Aucune", String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(MainActivity.act, R.color.slidingMenuBakground))));
 

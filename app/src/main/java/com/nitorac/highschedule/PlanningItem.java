@@ -45,12 +45,14 @@ public class PlanningItem {
         return endTime;
     }
 
-    public void setStartField(int field, int value){
-        startTime.set(field, value);
+    public void setStartTime(Calendar start){
+        startTime = start;
+        startMillis = start.getTimeInMillis();
     }
 
-    public void setEndField(int field, int value){
-        endTime.set(field, value);
+    public void setEndTime(Calendar end){
+        endTime = end;
+        endMillis = end.getTimeInMillis();
     }
 
     public Date getDuration(){
@@ -62,6 +64,10 @@ public class PlanningItem {
         date.setHours((int) hours);
         date.setMinutes((int) minutes);
         return date;
+    }
+
+    public boolean isEarlierThan(PlanningItem pi){
+        return getStartCal().before(pi.getStartCal());
     }
 
     public static boolean ifIntersect(PlanningItem pi1, PlanningItem pi2){

@@ -1,13 +1,16 @@
 package com.nitorac.highschedule;
 
 import android.support.design.widget.Snackbar;
+import android.text.format.Time;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * Created by Nitorac.
@@ -39,6 +42,54 @@ public class Day {
             }
         }
         return false;
+    }
+
+    public PlanningItem getNextPlanningItem(PlanningItem current){
+        ArrayList<PlanningItem> sortedDay = getSortedPlanningItems();
+        int currentIndexPi = sortedDay.indexOf(current);
+        return sortedDay.get(currentIndexPi+1);
+    }
+
+    public ArrayList<PlanningItem> getSortedPlanningItems(){
+        ArrayList<PlanningItem> curArray = getPlanningItems(), resultArray = new ArrayList<>();
+        //Initialize time slots
+        for(PlanningItem pi : curArray){
+            ArrayList<Calendar> cals = new ArrayList<>(Arrays.asList(pi.getStartCal(), pi.getEndCal()));
+            for(Calendar cal : cals){
+                cal.set(0, 0, 0);
+            }
+            PlanningItem backPi = pi;
+            pi.setStartTime(cals.get(0));
+            pi.setEndTime(cals.get(1));
+            curArray.set(curArray.indexOf(backPi), pi);
+        }
+        //Set hierarchy
+        ArrayList<PlanningItem> curTemp = (ArrayList<PlanningItem>) curArray.clone();
+        while(true){
+            PlanningItem pi = curTemp.get(0);
+            ArrayList<PlanningItem> temp = (ArrayList<PlanningItem>) curTemp.clone();
+            temp.remove(temp.indexOf(pi));
+
+            if(temp.size() == 0 ){
+                resultArray.add(pi);
+                break;
+            }
+
+            PlanningItem mostRecent = pi;
+
+            for(PlanningItem pi2compare : temp){
+                if(pi2compare.isEarlierThan(mostRecent)){
+                    mostRecent = pi2compare;
+                }
+            }
+
+            int index = curTemp.indexOf(mostRecent);
+            curTemp.remove(index);
+
+            resultArray.add(mostRecent);
+        }
+
+        return resultArray;
     }
 
     public boolean ifIntersectWithDayIgnoreItself(PlanningItem pi){

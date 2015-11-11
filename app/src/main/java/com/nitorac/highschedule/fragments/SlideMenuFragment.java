@@ -1,17 +1,12 @@
 package com.nitorac.highschedule.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -59,7 +54,10 @@ public class SlideMenuFragment extends ListFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity.menu.toggle(true);
                 FragmentTransaction transaction = MainActivity.fm.beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+                transaction.setCustomAnimations(R.anim.enter_x, R.anim.exit_x);
+                if(MainActivity.myHandler != null){
+                    MainActivity.myHandler.removeCallbacks(MainActivity.myRunnable);
+                }
                 switch(i){
                     case 0:
                         transaction.replace(R.id.fragment_container, new ShowActivity());
@@ -68,7 +66,7 @@ public class SlideMenuFragment extends ListFragment {
                         transaction.replace(R.id.fragment_container, new DefineActivity());
                         break;
                 }
-
+                MainActivity.fragment_position = i;
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
